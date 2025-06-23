@@ -1,0 +1,8 @@
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.AssemblyInfo.cs
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.RazorAssemblyInfo.cache
+C:\Users\User\source\repos\AutoPartsShop\AutoPartsShop\obj\Debug\net8.0\AutoPartsShop.RazorAssemblyInfo.cs

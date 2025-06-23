@@ -1,0 +1,91 @@
+﻿@model AutoPartsShop.Models.ViewModels.CheckoutViewModel
+
+<div class="container">
+    <h1 class="text-center mt-4">Оформление заказа</h1>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Детали заказа</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Итого</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr>
+                            <td>@item.Product.Name</td>
+                            <td>@item.PriceAtTimeOfAddition BYN</td>
+                            <td>@item.Quantity</td>
+                            <td>@(item.PriceAtTimeOfAddition * item.Quantity) BYN</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Общая сумма:</strong></td>
+                        <td>@Model.TotalAmount BYN</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Информация о доставке</h3>
+            <form asp-action="ConfirmOrder" method="post">
+                <input type="hidden" asp-for="CartId" />
+                <input type="hidden" asp-for="TotalAmount" />
+                <div class="mb-3">
+                    <label asp-for="FullName" class="form-label">Полное имя</label>
+                    <input asp-for="FullName" class="form-control" required />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Address" class="form-label">Адрес доставки</label>
+                    <input asp-for="Address" class="form-control" required />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="City" class="form-label">Город</label>
+                    <input asp-for="City" class="form-control" required />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PostalCode" class="form-label">Почтовый индекс</label>
+                    <input asp-for="PostalCode" class="form-control" required />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label">Номер телефона</label>
+                    <input asp-for="PhoneNumber" class="form-control" required />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PaymentMethod" class="form-label">Способ оплаты</label>
+                    <select asp-for="PaymentMethod" class="form-select" required>
+                        <option value="">Выберите способ оплаты</option>
+                        <option value="CashOnDelivery">Наличными при получении</option>
+                        <option value="CreditCard">Кредитной картой</option>
+                    </select>
+                    <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Подтвердить заказ</button>
+                <a href="@Url.Action("Index", "Cart")" class="btn btn-secondary w-100 mt-2">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>

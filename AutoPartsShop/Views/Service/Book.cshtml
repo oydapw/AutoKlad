@@ -1,0 +1,24 @@
+﻿@model AutoPartsShop.Models.Service
+
+<div class="container">
+    <h1 class="text-center mt-4">Запись на услугу</h1>
+    <h3 class="mt-4">@Model.Name</h3>
+    <p>Цена: @Model.Price BYN</p>
+
+    <form asp-action="Book" method="post">
+        <input type="hidden" name="serviceId" value="@Model.ServiceId" />
+        <div class="form-group mt-3">
+            <label>Полное имя</label>
+            <input type="text" name="fullName" class="form-control" required />
+        </div>
+        <div class="form-group mt-3">
+            <label>Номер телефона</label>
+            <input type="text" name="phoneNumber" class="form-control" required />
+        </div>
+        <div class="form-group mt-3">
+            <label>Дата и время</label>
+            <input type="datetime-local" name="bookingDate" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Записаться</button>
+    </form>
+</div>

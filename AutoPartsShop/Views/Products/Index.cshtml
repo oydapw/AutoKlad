@@ -1,0 +1,58 @@
+﻿@model IEnumerable<AutoPartsShop.Models.Product>
+
+<div class="container">
+    <h1 class="text-center mt-4">Каталог товаров</h1>
+
+    <form asp-controller="Products" asp-action="Index" method="get" class="mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <select name="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">Все категории</option>
+                    <option value="Тормозные колодки">Тормозные колодки</option>
+                    <option value="Масляные фильтры">Масляные фильтры</option>
+                    <option value="Свечи зажигания">Свечи зажигания</option>
+                    <option value="Аккумуляторы">Аккумуляторы</option>
+                    <option value="Ремни ГРМ">Ремни ГРМ</option>
+                </select>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text"><strong>Цена:</strong> @product.Price BYN</p>
+                        <p class="card-text"><strong>В наличии:</strong> @product.Stock</p>
+                        <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                            <input type="hidden" name="productId" value="@product.ProductId" />
+                            <input type="number" name="quantity" value="1" min="1" class="form-control d-inline w-auto" style="width: 80px;" />
+                            <button type="submit" class="btn btn-primary mt-2">Добавить в корзину</button>
+                        </form>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a href="@Url.Action("Edit", "Products", new { id = product.ProductId })" class="btn btn-warning mt-2">Редактировать</a>
+                            <a href="@Url.Action("Delete", "Products", new { id = product.ProductId })" class="btn btn-danger mt-2">Удалить</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center">Товары не найдены.</p>
+    }
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="text-center">
+            <a href="@Url.Action("Create", "Products")" class="btn btn-success">Добавить товар</a>
+        </div>
+    }
+</div>

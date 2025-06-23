@@ -1,0 +1,31 @@
+﻿<div class="container">
+    <h1 class="text-center mt-4">Регистрация</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Register" method="post" class="mt-4">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p>@error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="email" required />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" name="password" class="form-control" id="password" required />
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Подтвердите пароль</label>
+                    <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+</div>

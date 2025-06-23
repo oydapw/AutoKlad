@@ -1,0 +1,29 @@
+﻿@model IEnumerable<AutoPartsShop.Models.Product>
+
+<div class="container">
+    <h1 class="text-center mt-4">Добро пожаловать в AutoKlad</h1>
+    <p class="text-center">Добро пожаловать в наш магазин автозапчастей. Вы найдёте всё, что нужно для вашего автомобиля!</p>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row mt-4">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description</p>
+                            <p class="card-text"><strong>Цена: @product.Price BYN</strong></p>
+                            <a href="@Url.Action("Details", "Products", new { id = product.ProductId })" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="text-center mt-4">На данный момент товаров нет.</p>
+    }
+</div>

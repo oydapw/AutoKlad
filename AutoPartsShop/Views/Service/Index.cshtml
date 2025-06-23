@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AutoPartsShop.Models.Service>
+
+<div class="container">
+    <h1 class="text-center mt-4">Услуги СТО</h1>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="@Url.Action("CreateService")" class="btn btn-primary mb-3">Добавить услугу</a>
+    }
+
+    <div class="row mt-4">
+        @foreach (var service in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@service.Name</h5>
+                        <p class="card-text">@service.Description</p>
+                        <p class="card-text"><strong>Цена: @service.Price BYN</strong></p>
+                        <a href="@Url.Action("Book", new { id = service.ServiceId })" class="btn btn-primary">Записаться</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

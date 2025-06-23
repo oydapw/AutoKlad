@@ -1,0 +1,21 @@
+﻿@model AutoPartsShop.Models.Product
+
+<div class="container">
+    <h1 class="text-center mt-4">@Model.Name</h1>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Описание</h5>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text"><strong>Цена: @Model.Price BYN</strong></p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                    <input type="hidden" name="productId" value="@Model.ProductId" />
+                    <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                </form>
+            }
+            <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-2">Назад</a>
+        </div>
+    </div>
+</div>

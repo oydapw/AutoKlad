@@ -1,0 +1,89 @@
+﻿@model OrdersViewModel
+
+<div class="container">
+    <h1 class="text-center mt-4">Мои заказы и услуги</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <h2>Заказы</h2>
+    @if (Model.Orders.Any())
+    {
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>ID заказа</th>
+                    <th>Дата</th>
+                    <th>Сумма (BYN)</th>
+                    <th>Статус</th>
+                    <th>Способ оплаты</th>
+                    <th>Адрес доставки</th>
+                    <th>Товары</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@order.OrderDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@order.TotalAmount</td>
+                        <td>@order.Status</td>
+                        <td>@order.PaymentMethod</td>
+                        <td>@order.Address, @order.City, @order.PostalCode</td>
+                        <td>
+                            <ul>
+                                @foreach (var detail in order.OrderDetails)
+                                {
+                                    <li>@detail.Product.Name (x@detail.Quantity) - @detail.UnitPrice BYN</li>
+                                }
+                            </ul>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center mt-4">У вас нет заказов.</p>
+    }
+
+    <h2>Услуги</h2>
+    @if (Model.ServiceBookings.Any())
+    {
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>ID бронирования</th>
+                    <th>Пользователь</th>
+                    <th>Телефон</th>
+                    <th>Дата бронирования</th>
+                    <th>Услуга</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model.ServiceBookings)
+                {
+                    <tr>
+                        <td>@booking.BookingId</td>
+                        <td>@booking.FullName</td>
+                        <td>@booking.PhoneNumber</td>
+                        <td>@booking.BookingDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@booking.Service.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center mt-4">У вас нет забронированных услуг.</p>
+    }
+</div>

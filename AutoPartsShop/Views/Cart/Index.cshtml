@@ -1,0 +1,65 @@
+﻿@model AutoPartsShop.Models.Cart
+
+<div class="container">
+    <h1 class="text-center mt-4">Ваша корзина</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    @if (Model.CartItems.Any())
+    {
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Итого</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>@item.PriceAtTimeOfAddition BYN</td>
+                        <td>
+                            <form asp-action="UpdateQuantity" method="post" class="d-inline">
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                <input type="number" name="quantity" value="@item.Quantity" min="1" class="form-control d-inline w-auto" style="width: 80px;" />
+                                <button type="submit" class="btn btn-primary btn-sm">Обновить</button>
+                            </form>
+                        </td>
+                        <td>@(item.PriceAtTimeOfAddition * item.Quantity) BYN</td>
+                        <td>
+                            <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                                <input type="hidden" name="cartItemId" value="@item.CartItemId" />
+                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Общая сумма:</strong></td>
+                    <td colspan="2">@Model.CartItems.Sum(ci => ci.PriceAtTimeOfAddition * ci.Quantity) BYN</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="text-center">
+            <a href="@Url.Action("Checkout", "Orders", new { cartId = Model.CartId })" class="btn btn-primary">Оформить заказ</a>
+        </div>
+    }
+    else
+    {
+        <p class="text-center mt-4">Ваша корзина пуста.</p>
+    }
+</div>

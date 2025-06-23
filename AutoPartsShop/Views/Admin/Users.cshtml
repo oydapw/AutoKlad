@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+
+<div class="container">
+    <h1 class="text-center mt-4">Управление пользователями</h1>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Роль</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td>
+                        @(await UserManager.GetRolesAsync(user)).FirstOrDefault() ?? "Нет роли"
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@inject Microsoft.AspNetCore.Identity.UserManager<Microsoft.AspNetCore.Identity.IdentityUser> UserManager
